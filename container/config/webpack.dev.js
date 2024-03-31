@@ -1,4 +1,3 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.common');
 const { ModuleFederationPlugin } = require('webpack').container;
@@ -9,10 +8,7 @@ const devConfig = {
         port: 3000,
         historyApiFallback: true
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './public/index.html'
-        }),        
+    plugins: [      
         new ModuleFederationPlugin({
             name: 'container',
             remotes: {
