@@ -7,9 +7,11 @@ const App = () => {
     return (
         <BrowserRouter>
             <Header />
-            <Switch>
+            {/*<Switch>
                 <Route exact path="/" component={MarketingAppComponent} />
             </Switch>
+        */}
+            <MarketingAppComponent />
         </BrowserRouter>
     );
 }
