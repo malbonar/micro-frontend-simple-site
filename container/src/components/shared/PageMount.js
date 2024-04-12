@@ -6,7 +6,10 @@ const PageMount = (props) => {
     const history = useHistory();
 
     useEffect(() => {
-        const { onParentNavigate } = props.mount(ref.current, { 
+        const paramObject = {
+            // when we first load the module set the initial path to current path
+            // so that the memory router of the child module knows if we're not at / root
+            initialPath: history.location.pathname,
             // sync container browser route with module federation child component memory route
             onNavigate: ({ pathname: nextPathname}) => {
                 const { pathname } = history.location;
@@ -14,7 +17,9 @@ const PageMount = (props) => {
                     history.push(nextPathname);
                 }
             }
-        });
+        };
+
+        const { onParentNavigate } = props.mount(ref.current, paramObject);
 
         history.listen(onParentNavigate);
     }, []);

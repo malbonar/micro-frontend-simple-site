@@ -5,6 +5,9 @@ const { ModuleFederationPlugin } = require('webpack').container;
 
 const devConfig = {
     mode: 'development',
+    output: {
+        publicPath: 'http://localhost:3001/'
+    },
     devServer: {
         port: 3001,
         historyApiFallback: {

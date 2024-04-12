@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.common');
 const { ModuleFederationPlugin } = require('webpack').container;
@@ -5,18 +6,21 @@ const { ModuleFederationPlugin } = require('webpack').container;
 const devConfig = {
     mode: 'development',
     output: {
-        publicPath: 'http://localhost:3000/'
+        publicPath: 'http://localhost:3002/'
     },
     devServer: {
-        port: 3000,
+        port: 3002,
         historyApiFallback: true
     },
-    plugins: [      
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './public/index.html'
+        }),
         new ModuleFederationPlugin({
-            name: 'container',
-            remotes: {
-                marketing: 'marketing@http://localhost:3001/remoteEntry.js',
-                authentication: 'authentication@http://localhost:3002/remoteEntry.js'
+            name: 'authentication',
+            filename: 'remoteEntry.js',
+            exposes: {
+                './Auth': './src/bootstrap.js'
             },
             shared: ['react', 'react-dom', '@material-ui/core/styles']
         })
