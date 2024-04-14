@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { MarketingAppComponent } from './components/MarketingAppComponent';
-import { AuthAppComponent } from './components/AuthAppComponent';
 import Header from './components/Header';
 
+const MarketingApp = lazy(() => import('./components/MarketingAppComponent'));
+const AuthApp = lazy(() => import('./components/AuthAppComponent'));
+
 const App = () => {
+    const [isSignedIn, setIsSignedIn] = useState(false);
+
     return (
         <BrowserRouter>
-            <Header />
-            <Switch>
-                <Route path="/auth" component={AuthAppComponent} />
-                <Route path="/" component={MarketingAppComponent} />
-            </Switch>
+            <Header signedIn={isSignedIn} onSignOut={() => setIsSignedIn(false)} />
+            <Suspense fallback={null}>
+                <Switch>
+                    <Route path="/auth">
+                        <AuthApp onSignIn={() => setIsSignedIn(true) } />
+                    </Route>
+                    <Route path="/" component={MarketingApp} />
+                </Switch>
+            </Suspense>
         </BrowserRouter>
     );
 }

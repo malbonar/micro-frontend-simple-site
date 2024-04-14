@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import {useHistory } from 'react-router-dom';
 
-const PageMount = (props) => {
+const PageMount = ({ mount, onSignIn }) => {
     const ref = useRef(null);
     const history = useHistory();
 
@@ -16,10 +16,13 @@ const PageMount = (props) => {
                 if (pathname !== nextPathname) {
                     history.push(nextPathname);
                 }
+            },
+            onSignIn: () => {
+                onSignIn();
             }
         };
 
-        const { onParentNavigate } = props.mount(ref.current, paramObject);
+        const { onParentNavigate } = mount(ref.current, paramObject);
 
         history.listen(onParentNavigate);
     }, []);
