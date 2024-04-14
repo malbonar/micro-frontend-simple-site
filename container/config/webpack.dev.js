@@ -16,7 +16,7 @@ const devConfig = {
             name: 'container',
             remotes: {
                 marketing: 'marketing@http://localhost:3001/remoteEntry.js',
-                authentication: 'authentication@http://localhost:3002/remoteEntry.js'
+                auth: 'auth@http://localhost:3002/remoteEntry.js'
             },
             shared: ['react', 'react-dom', '@material-ui/core/styles']
         })

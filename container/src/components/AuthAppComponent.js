@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'authentication/Auth';
+import { mount } from 'auth/Auth';
 import PageMount from './shared/PageMount';
 
 const AuthAppComponent = ({ onSignIn}) => {
